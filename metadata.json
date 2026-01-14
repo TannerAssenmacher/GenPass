@@ -1,0 +1,5 @@
+{
+  "name": "Pass Elite",
+  "description": "A high-end password generator with Dashlane-inspired UI, real-time Python code generation, and AI-powered security analysis.",
+  "requestFramePermissions": []
+}
