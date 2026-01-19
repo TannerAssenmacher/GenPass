@@ -16,7 +16,8 @@ const PasswordDisplay: React.FC<PasswordDisplayProps> = ({ password, isGeneratin
   const frameRef = useRef<number | null>(null);
 
   useEffect(() => {
-    if (isGenerating) {
+    if (password) {
+      // Animate characters before showing final password
       let count = 0;
       const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*';
       const animate = () => {
@@ -34,7 +35,7 @@ const PasswordDisplay: React.FC<PasswordDisplayProps> = ({ password, isGeneratin
       };
       animate();
     } else {
-      setDisplayText(password);
+      setDisplayText('••••••••');
     }
     return () => {
       // Fix: frameRef.current can be null, check before calling cancelAnimationFrame.
@@ -42,7 +43,7 @@ const PasswordDisplay: React.FC<PasswordDisplayProps> = ({ password, isGeneratin
         cancelAnimationFrame(frameRef.current);
       }
     };
-  }, [password, isGenerating]);
+  }, [password]);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(password);
@@ -53,8 +54,8 @@ const PasswordDisplay: React.FC<PasswordDisplayProps> = ({ password, isGeneratin
 
   return (
     <div className="relative group">
-      <div className="w-full bg-slate-900/50 rounded-xl p-6 border border-slate-700/50 flex flex-col items-center justify-center min-h-[100px] transition-all duration-300 hover:border-orange-500/50">
-        <div className="mono text-2xl md:text-3xl font-bold tracking-wider text-orange-400 break-all text-center">
+      <div className="w-full bg-slate-900/50 rounded-xl p-3 border border-slate-700/50 flex flex-col items-center justify-center min-h-[70px] transition-all duration-300 hover:border-orange-500/50">
+        <div className="mono text-xl md:text-2xl font-bold tracking-wider text-orange-400 break-all text-center">
           {displayText || '••••••••'}
         </div>
         
